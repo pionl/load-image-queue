@@ -53,5 +53,11 @@
   },
   "dependencies": {
     "load-queue": "^1.0.5"
-  }
+  },
+  "keywords": [
+    "javascript",
+    "queue",
+    "load-queue",
+    "image loading"
+  ]
 }
