@@ -1,0 +1,57 @@
+{
+  "name": "load-image-queue",
+  "version": "1.0.0",
+  "description": "Loading image with queue support to allow loading images as you need. Ideal for virtual list (with cancel support).",
+  "main": "dist/load-image-queue.js",
+  "repository": "https://github.com/pionl/load-image-queue",
+  "files": [
+    "dist"
+  ],
+  "jest": {
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "text-summary"
+    ]
+  },
+  "scripts": {
+    "build-pre": "rimraf dist",
+    "build-dev": "NODE_ENV=development webpack --progress --colors",
+    "build-prod": "BABEL_ENV=production NODE_ENV=production webpack -p",
+    "build": "npm run build-pre && npm run build-dev && npm run build-prod",
+    "watch": "webpack --progress --colors --watch",
+    "lint": "node_modules/.bin/eslint ./src/. --ext .js",
+    "lint-fix": "node_modules/.bin/eslint --fix ./src/. --ext .js",
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+    "dev-test": "jest --watch"
+  },
+  "author": "Martin Kluska <martin@kluska.cz>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jest": "^20.0.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^19.0.2",
+    "rimraf": "^2.6.1",
+    "webpack": "^2.4.1"
+  },
+  "dependencies": {
+    "load-queue": "^1.0.5"
+  }
+}

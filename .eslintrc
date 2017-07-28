@@ -1,0 +1,29 @@
+{
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest/globals": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "indent": ["error", 4], // allow 4 spaces for a tab
+    "quotes": [2, "single"],
+    "strict": [2, "never"],
+    "jsx-quotes": [2, "prefer-double"],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/valid-expect": "error"
+  },
+  "plugins": [
+    "jest"
+  ],
+  "extends": ["standard"],
+  "process": {
+    "process": false
+  }
+}
