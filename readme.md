@@ -64,6 +64,126 @@ entry.cancel()
 
 More about how to cancel and work with queue, check the `load-queue` [package](https://github.com/pionl/load-queue#load-queue)
 
+# React usage
+This package is ideal to use with react component (or any virtual dom). It is important to call cancel when component
+has been updated (or moved)
+
+```javascript
+import {createImageQueue} from 'load-image-queue'
+
+const images = createImageQueue(3)
+
+export default class Image extends React.Component {
+    static propTypes = {
+        url: PropTypes.string.isRequired
+    }
+    static defaultProps = {}
+
+    constructor (props, context) {
+        super(props, context)
+
+        /**
+         * The queue entry
+         * @type {QueueEntry}
+         */
+        this.queueEntry = null
+        this.mounted = false
+        this.state = {
+            loading: true,
+            error: null
+        }
+    }
+
+    /**
+     * Load the image
+     */
+    loadImage () {
+        const {loading, error} = this.state
+        if (loading === false || error !== null) {
+            return
+        }
+
+        // Get the thumbnail
+        const {url} = this.props
+
+        // Load the image
+        this.queueEntry = images.load(url, (url) => {
+            if (this.mounted === false) {
+                return
+            } 
+            
+            this.setState({
+                loading: false,
+                error: null
+            })
+        }, (error) => {
+            this.setState({
+                error: error
+            })
+        })
+    }
+
+    /**
+     * Cancels current load
+     */
+    cancelLoad () {
+        if (this.queueEntry !== null) {
+            this.queueEntry.cancel()
+            this.queueEntry = null
+        }
+    }
+
+    // Load the image when the component has been mounted or updated
+    componentWillMount () {
+        this.mounted = true
+        this.loadImage()
+    }
+
+    componentDidUpdate () {
+        this.loadImage()
+    }
+
+    /**
+     * Cancel upload when component is being destroyed
+     */
+    componentWillUnmount () {
+        this.mounted = false
+        this.cancelLoad()
+    }
+
+    /**
+     * Handle new props url and load new image
+     * @param nextProps
+     */
+    componentWillReceiveProps (nextProps) {
+        if (nextProps.url !== this.props.url) {
+            // Cancel the previously loaded image
+            this.cancelLoad()
+
+            // Update the state to loading
+            this.setState({
+                loading: true,
+                error: null
+            })
+        }
+    }
+
+    render () {
+        const {loading, error} = this.state
+        const {url} = this.props
+
+        // Pass src only if loaded
+        let src = null
+        if (loading === false && error === null) {
+            src = `url(${url})`
+        }
+
+        return <img src={src} />
+    }
+}
+
+```
+
 ## Copyright and License
 
 [load-image-queue](https://github.com/pionl/load-image-queue)
