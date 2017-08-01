@@ -8,7 +8,7 @@ import {Queue, CachedQueue} from 'load-queue'
  * @param {boolean} cache In default uses cache because mostly image are not changed while runtime
  * @return {Queue|CachedQueue}
  */
-function createImageQueue (concurrentJobs = 1, cache = true) {
+function createImageQueue (concurrentJobs = 1, cache = true, ) {
     if (cache) {
         return new CachedQueue(ImageLoadTask, concurrentJobs)
     }
