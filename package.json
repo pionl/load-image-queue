@@ -1,6 +1,6 @@
 {
   "name": "load-image-queue",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Loading image with queue support to allow loading images as you need. Ideal for virtual list (with cancel support).",
   "main": "lib/index.js",
   "repository": "https://github.com/pionl/load-image-queue",
@@ -55,7 +55,7 @@
     "webpack": "^2.4.1"
   },
   "dependencies": {
-    "load-queue": "^1.0.7"
+    "load-queue": "^1.1.0"
   },
   "keywords": [
     "javascript",
